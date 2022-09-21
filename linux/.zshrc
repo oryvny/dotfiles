@@ -271,8 +271,6 @@ fi
 
 fpath=(~/.zsh-completions/src $fpath)
 
-. /opt/asdf-vm/asdf.sh
-
 # source files
 [ -r /usr/share/bash-completion/completions ] &&
   . /usr/share/bash-completion/completions/*

@@ -363,28 +363,28 @@ distribution ()
 	local dtype
 	# Assume unknown
 	dtype="unknown"
-	
+
 	# First test against Fedora / RHEL / CentOS / generic Redhat derivative
 	if [ -r /etc/rc.d/init.d/functions ]; then
 		source /etc/rc.d/init.d/functions
 		[ zz`type -t passed 2>/dev/null` == "zzfunction" ] && dtype="redhat"
-	
+
 	# Then test against SUSE (must be after Redhat,
 	# I've seen rc.status on Ubuntu I think? TODO: Recheck that)
 	elif [ -r /etc/rc.status ]; then
 		source /etc/rc.status
 		[ zz`type -t rc_reset 2>/dev/null` == "zzfunction" ] && dtype="suse"
-	
+
 	# Then test against Debian, Ubuntu and friends
 	elif [ -r /lib/lsb/init-functions ]; then
 		source /lib/lsb/init-functions
 		[ zz`type -t log_begin_msg 2>/dev/null` == "zzfunction" ] && dtype="debian"
-	
+
 	# Then test against Gentoo
 	elif [ -r /etc/init.d/functions.sh ]; then
 		source /etc/init.d/functions.sh
 		[ zz`type -t ebegin 2>/dev/null` == "zzfunction" ] && dtype="gentoo"
-	
+
 	# For Mandriva we currently just test if /etc/mandriva-release exists
 	# and isn't empty (TODO: Find a better way :)
 	elif [ -s /etc/mandriva-release ]; then
@@ -695,7 +695,9 @@ function __setprompt
 }
 PROMPT_COMMAND='__setprompt'
 
-. /opt/asdf-vm/asdf.sh
+# source files
+[ -r /usr/share/bash-completion/completions ] &&
+  . /usr/share/bash-completion/completions/*
 
 # examples how to export to path
 # export PATH=~/bin:PATH"$PATH"
@@ -718,8 +720,8 @@ export LANG=POSIX
 # sets default permissions for newly created files and folders
 umask 0002
 
-# can do file exception in regex like " mv !(fileOne) ~/path/newFolder "
-shopt -s extglob
+# can do file exception in regex like " mv ~/path/to/source^(exception) ~/path/to/target/folder "
+setopt extended_glob
 
 # alias
 alias c="clear"
