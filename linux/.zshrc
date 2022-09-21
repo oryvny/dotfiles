@@ -271,10 +271,6 @@ fi
 
 fpath=(~/.zsh-completions/src $fpath)
 
-# source files
-[ -r /usr/share/bash-completion/completions ] &&
-  . /usr/share/bash-completion/completions/*
-
 # examples how to export to path
 # export PATH=~/bin:PATH"$PATH"
 # export PATH=${PATH}:${HOME}/bin
