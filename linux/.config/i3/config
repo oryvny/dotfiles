@@ -372,7 +372,7 @@ bar {
 }
 
 # Keyboard
-exec setxkbmap us
+exec "setxkbmap -layout us -variant alt-intl"
 
 # Display Resolution
 # exec_always xrandr --output Virtual-1 --mode 1024x768
